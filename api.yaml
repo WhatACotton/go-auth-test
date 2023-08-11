@@ -1,0 +1,76 @@
+openapi: "3.0.3"
+info:
+  title: "Iris-backend-ForAdmin"
+  description: "IrisProjectの管理者側のサーバのAPIです。"
+  version: "1.0.0"
+
+servers:
+  - url: "http://localhost:8080"
+    description: "ローカル環境"
+
+tags:
+- name: "itemlist"
+  description: "商品状態に関するAPI"
+- name: "items"
+  description: "商品に関するAPI"
+
+  
+paths: 
+  "/itemlist": 
+    get:
+      summary: "商品状態一覧を取得する"
+      description: "商品状態一覧を取得する"
+      tags: ["itemlist"]
+      deprecated: false
+      responses:
+        "200":
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+   
+
+  "/item": 
+    get:
+      summary: "商品状態一覧を取得する"
+      description: "商品状態一覧を取得する"
+      tags: ["items"]
+      deprecated: false
+      parameters:
+      - name: id
+        in:  path
+        required: true
+        schema: { type:string }
+        example: "test"
+      responses:
+        "200":
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        ItemId:
+          type: string
+          format: string
+          example: testItem01
+        InfoId:
+          type: string
+          format: string
+          example: testItemInfo01
+        status:
+          type: string
+          description: Order Status
+          example: 購入可能
+          enum:
+            - 購入可能
+            - 販売終了
+            - 期間限定
